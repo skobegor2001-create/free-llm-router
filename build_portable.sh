@@ -25,7 +25,7 @@ mkdir -p "$STAGE"/{app,windows/runtime,windows/assets}
 cp -r router.py server.py cli.py doctor.py indexdb.py filetext.py chatstore.py \
       requirements.txt .env.example .gitignore \
       install.cmd uninstall.cmd launcher.cmd \
-      static examples tests README.md GET-KEYS.md get_keys.py "$STAGE/app/"
+      static examples tests README.md README-full.md GET-KEYS.md get_keys.py "$STAGE/app/"
 cp windows/runtime/launcher.py "$STAGE/windows/runtime/"
 cp windows/setup_shortcuts.ps1 "$STAGE/windows/"
 cp windows/assets/app.ico "$STAGE/windows/assets/" 2>/dev/null || true

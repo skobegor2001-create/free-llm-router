@@ -42,7 +42,7 @@ mkdir -p "$STAGE"/{windows/runtime,windows/assets,wheels}
 
 cp -a router.py server.py cli.py doctor.py get_keys.py indexdb.py filetext.py chatstore.py \
      requirements.txt .env.example install.cmd uninstall.cmd launcher.cmd \
-     GET-KEYS.md README.md static examples tests \
+     GET-KEYS.md README.md README-full.md static examples tests \
      "$STAGE/"
 cp windows/runtime/launcher.py windows/uninstaller.py "$STAGE/windows/runtime/"
 cp windows/setup_shortcuts.ps1 "$STAGE/windows/"
