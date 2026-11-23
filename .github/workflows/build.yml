@@ -1,0 +1,59 @@
+name: build
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  windows-installer:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Смоук-тест (без ключей, на мок-провайдере)
+        run: python tests/smoke_test.py
+
+      - name: Установить зависимости сборки
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Установить NSIS
+        run: choco install nsis -y --no-progress
+
+      - name: Собрать установщик
+        shell: bash
+        run: |
+          export NSIS_HOME="/c/Program Files (x86)/NSIS"
+          ./build_setup.sh
+
+      - name: Собрать архивы
+        shell: bash
+        run: |
+          ./build_portable.sh
+          ./build_zip.sh
+
+      - name: Приложить артефакты
+        uses: actions/upload-artifact@v4
+        with:
+          name: FreeLLMRouter-windows
+          path: |
+            releases/*.exe
+            releases/*.zip
+            releases/SHA256SUMS.txt
+          retention-days: 30
+
+      - name: Опубликовать в Releases (только на тег)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            releases/*.exe
+            releases/*.zip
+            releases/SHA256SUMS.txt
+          generate_release_notes: true
