@@ -1,0 +1,40 @@
+# Мусор и локальные файлы
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Виртуальные окружения
+.venv/
+venv/
+env/
+
+# Секреты и локальные настройки
+.env
+.env.local
+*.key
+
+# Локальные данные: история чатов, журналы, порт, скачанные PDF
+data/
+*.log
+port
+
+# Артефакты сборки
+build/
+dist/
+releases/*.exe
+releases/*.zip
+releases/*.7z
+releases/FreeLLMRouter-*/
+
+# Кеш сборщика (встроенный Python и колёса скачиваются заново)
+build/wheels/
+build/python-*.zip
+
+# ОС и редакторы
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
